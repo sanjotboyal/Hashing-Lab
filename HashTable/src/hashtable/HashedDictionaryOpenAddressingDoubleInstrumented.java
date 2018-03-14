@@ -152,6 +152,14 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
         return val;
     } // end getHashIndex
     
+// ADD IN CODE FOR THE SECOND HASH FUNCION
+//>>>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>
+  //  private int getSecondHashIndex(K key){
+  
+    
+    
+  //  } // end getHashIndex
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     
     @Override
     public V getValue(K key)
@@ -195,6 +203,14 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
     private int locate(int index, K key)
     {
         boolean found = false;
+
+// MODIFY THIS FOR DOUBLE HASHING
+//>>>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>
+        // First compute the second hash value
+     
+        
+        
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         
         while ( !found && (hashTable[index] != null) )
         {
@@ -202,9 +218,26 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
                 key.equals(hashTable[index].getKey()) )
                     found = true; // key found
             else // follow probe sequence
-                index = (index + 1) % hashTable.length; // Linear probing
+                
+//>>>>>>>>>>>>> MODIFIED THE FOLOWING FOR DOUBLE PROBING >>>>>>>>>>>
+               index = (index + 1) % hashTable.length; // Linear probing
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                
+//>>>>>>>>>>>>> ADDED CODE to increase total probing >>>>>>>>>>>>>>
+          
+
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<          
+                
+                
         } // end while
         
+        
+//>>>>>>>>>>>>> ADDED CODE to increase total probing if not found >>>>>>>>>
+       
+
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         // Assertion: Either key or  null is found at hashTable[index]
         int result = -1;
         
@@ -255,6 +288,15 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
     // Precondition: checkInitialization has been called.
     private int probe(int index, K key) {
         boolean found = false;
+        
+        // MODIFY THIS FOR DOUBLE HASHING
+//>>>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>
+        // First compute the second hash value
+      
+        
+        
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        
         int removedStateIndex = -1; // Index of first location in
         // removed state
 
@@ -272,8 +314,17 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
                 if (removedStateIndex == -1) {
                     removedStateIndex = index;
                 }
+                
+////// Modify the following for Double probing  ////////////
                 index = (index + 1) % hashTable.length; // Linear probing
+////////////////////////////////
             } // end if
+            
+//>>>>>>>>>>>>> ADDED CODE to increase total probing >>>>>>>>>>>>>>
+       
+
+
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
         } // end while
         
         
