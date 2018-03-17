@@ -31,6 +31,11 @@ public class HashedDictionaryOpenAddressingPerfectInstrumented<K,V> implements D
     
         private static int totalProbes = 0;
     
+    private int getHashGenerator(K key){
+        
+        return 5;
+    }
+        
     public static void resetTotalProbes()
     {
        // add your code here
