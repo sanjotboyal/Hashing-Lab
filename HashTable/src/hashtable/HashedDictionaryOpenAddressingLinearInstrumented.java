@@ -191,19 +191,20 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
     private int locate(int index, K key)
     {
         boolean found = false;
-        
+    
         while ( !found && (hashTable[index] != null) )
         {
             totalProbes++;
             if ( hashTable[index].isIn() &&
                 key.equals(hashTable[index].getKey()) )
                     found = true; // key found
-            else // follow probe sequence
+            else{ // follow probe sequence
                 index = (index + 1) % hashTable.length; // Linear probing
+            }
         } // end while
         
-        if(hashTable[index] == null){
-            totalProbes = totalProbes + 1;
+        if(!found){
+            totalProbes++;
         }
         
         // Assertion: Either key or  null is found at hashTable[index]
@@ -258,7 +259,7 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
         boolean found = false;
         int removedStateIndex = -1; // Index of first location in
         // removed state
-
+       
         while (!found && (hashTable[index] != null)) {
             totalProbes++;
             if (hashTable[index].isIn()) {
@@ -266,6 +267,7 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
                     found = true; // Key found
                 } else // Follow probe sequence
                 {
+                    
                     index = (index + 1) % hashTable.length; // Linear probing
                 }
             } else // Skip entries that were removed
@@ -278,9 +280,10 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
             } // end if
         } // end while
         
-        if(hashTable[index]==null){
-            totalProbes = totalProbes + 1;
+        if(!found){
+            totalProbes++;
         }
+       
         
         // Assertion: Either key or null is found at hashTable[index]
         if (found || (removedStateIndex == -1) )

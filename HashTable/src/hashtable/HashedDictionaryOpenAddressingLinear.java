@@ -91,7 +91,7 @@ public class HashedDictionaryOpenAddressingLinear<K,V> implements DictionaryInte
         MAX_LOAD_FACTOR = loadFactor;
     } // end setMaxLoadFactor
     
-   
+    
     
     private int getNextPrime(int t)
     {
