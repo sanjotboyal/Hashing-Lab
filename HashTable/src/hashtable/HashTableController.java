@@ -121,19 +121,27 @@ public class HashTableController implements Initializable {
             HashedDictionaryOpenAddressingPerfectInstrumented.resetTotalProbes();
             
             //Search (string data vs data [int]??)
-            successLinearProbes = searchFirstHalf(linearTable,stringData);
-            successDoubleProbes = searchFirstHalf(doubleTable,stringData);
-            successPerfectProbes = searchFirstHalf(perfectTable,stringData) ;
+            searchFirstHalf(linearTable,stringData);
+            searchFirstHalf(doubleTable,stringData);
+            searchFirstHalf(perfectTable,stringData) ;
+            
+            successLinearProbes += HashedDictionaryOpenAddressingLinearInstrumented.getTotalProbes();
+            successDoubleProbes += HashedDictionaryOpenAddressingDoubleInstrumented.getTotalProbes();
+            successPerfectProbes += HashedDictionaryOpenAddressingPerfectInstrumented.getTotalProbes();
             
             HashedDictionaryOpenAddressingLinearInstrumented.resetTotalProbes();
             HashedDictionaryOpenAddressingDoubleInstrumented.resetTotalProbes();
             HashedDictionaryOpenAddressingPerfectInstrumented.resetTotalProbes();
             
-            
             //Search 2nd half:
-            failureLinearProbes = searchSecondHalf(linearTable,stringData);
-            failureDoubleProbes = searchSecondHalf(linearTable,stringData);
-            failurePerfectProbes = searchSecondHalf(linearTable,stringData);
+            searchSecondHalf(linearTable,stringData);
+            searchSecondHalf(doubleTable,stringData);
+            searchSecondHalf(perfectTable,stringData);
+            
+            failureLinearProbes += HashedDictionaryOpenAddressingLinearInstrumented.getTotalProbes();
+            failureDoubleProbes += HashedDictionaryOpenAddressingDoubleInstrumented.getTotalProbes();
+            failurePerfectProbes += HashedDictionaryOpenAddressingPerfectInstrumented.getTotalProbes();
+            
             
         }
 
@@ -485,16 +493,11 @@ public class HashTableController implements Initializable {
 // ADD A METHOD HERE TO SEARCH FOR ITEMS FROM THE FIRST HALF OF THE ARRAY
 // (SUCCESS SEARCHES)
 //>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    private int searchFirstHalf(DictionaryInterface<String, String> dict, String[] data) {
-        int resultSuccess = 0;
+    private void searchFirstHalf(DictionaryInterface<String, String> dict, String[] data) {
+        
         for(int i=0; i<(data.length)/2; i++){
-            if(dict.contains(data[i])){
-                resultSuccess++;
-            }else{
-                
-            }
+            dict.contains(data[i]);        
         }
-        return resultSuccess; 
     }
            
         
@@ -502,16 +505,11 @@ public class HashTableController implements Initializable {
 // ADD A METHOD HERE TO SEARCH FOR ITEMS FROM THE SECOND HALF OF THE ARRAY
 // (FAILURE SEARCHES)
 //>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-     private int searchSecondHalf(DictionaryInterface<String, String> dict, String[] data) {
-        int resultFailures = 0;
+     private void searchSecondHalf(DictionaryInterface<String, String> dict, String[] data) {
+        
         for(int i=(data.length/2); i<data.length; i++){
-            if(dict.contains(data[i])){
-               
-            }else{
-                resultFailures++;
-            }
+            dict.contains(data[i]);
         }
-        return resultFailures;
     }
            
     

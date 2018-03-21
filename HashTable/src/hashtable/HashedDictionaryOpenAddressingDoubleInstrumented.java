@@ -218,6 +218,7 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
         
         while ( !found && (hashTable[index] != null) )
         {
+            totalProbes++;
             if ( hashTable[index].isIn() &&
                 key.equals(hashTable[index].getKey()) )
                     found = true; // key found
@@ -229,7 +230,7 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
  //>>>>>>>>>>>>> ADDED CODE to increase total probing >>>>>>>>>>>>>>
-            totalProbes++;
+           
             
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<          
             }   
