@@ -34,13 +34,13 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
     
     public static void resetTotalProbes()
     {
-       // add your code here
+      totalProbes = 0;
     }  
 
     public static int getTotalProbes()
     {
         // Change the return statement
-        return 0;
+        return totalProbes;
     }  
     
     
@@ -155,7 +155,7 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
 // ADD IN CODE FOR THE SECOND HASH FUNCION
 //>>>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>
   private int getSecondHashIndex(K key){
-    
+    //second hash index formula
         int val = key.toString().hashCode();
         val = Math.abs(val);
         val = (hashTable.length-1) -(val % (hashTable.length-1));
@@ -237,6 +237,9 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
         
         
 //>>>>>>>>>>>>> ADDED CODE to increase total probing if not found >>>>>>>>>
+        if(!found){
+            totalProbes++;
+        }
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         // Assertion: Either key or  null is found at hashTable[index]
@@ -325,6 +328,9 @@ public class HashedDictionaryOpenAddressingDoubleInstrumented<K,V> implements Di
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< 
         } // end while
         
+        if(!found){
+            totalProbes++;
+        }
         
         // Assertion: Either key or null is found at hashTable[index]
         if (found || (removedStateIndex == -1) )

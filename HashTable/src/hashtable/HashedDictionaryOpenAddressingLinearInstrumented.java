@@ -194,6 +194,7 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
     
         while ( !found && (hashTable[index] != null) )
         {
+            //loop runs: probed locations ++
             totalProbes++;
             if ( hashTable[index].isIn() &&
                 key.equals(hashTable[index].getKey()) )
@@ -203,6 +204,7 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
             }
         } // end while
         
+        //if loop doesnt run (it still probed the location however)
         if(!found){
             totalProbes++;
         }
@@ -261,6 +263,7 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
         // removed state
        
         while (!found && (hashTable[index] != null)) {
+            //probed the location inloop
             totalProbes++;
             if (hashTable[index].isIn()) {
                 if (key.equals(hashTable[index].getKey())) {
@@ -280,6 +283,7 @@ public class HashedDictionaryOpenAddressingLinearInstrumented<K,V> implements Di
             } // end if
         } // end while
         
+        //if it wasnt found: still probed location so increment total
         if(!found){
             totalProbes++;
         }

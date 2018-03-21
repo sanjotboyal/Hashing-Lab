@@ -41,13 +41,13 @@ public class HashedDictionaryOpenAddressingPerfectInstrumented<K,V> implements D
         
     public static void resetTotalProbes()
     {
-       // add your code here
+       totalProbes =  0;
     }  
 
     public static int getTotalProbes()
     {
         // Change the return statement
-        return 0;
+        return totalProbes;
     }  
     
     public HashedDictionaryOpenAddressingPerfectInstrumented()
@@ -194,10 +194,12 @@ public class HashedDictionaryOpenAddressingPerfectInstrumented<K,V> implements D
     {
        
         boolean found = false;
+        //Uses the passed random number generator to get the index used
         int index = rand.nextInt(hashTable.length);
         
         while ( !found && (hashTable[index] != null) )
         {
+            totalProbes++;
             if ( hashTable[index].isIn() &&
                 key.equals(hashTable[index].getKey()) )
                     found = true; // key found
@@ -205,6 +207,9 @@ public class HashedDictionaryOpenAddressingPerfectInstrumented<K,V> implements D
                 index = rand.nextInt(hashTable.length); // Linear probing
         } // end while
         
+        if(!found){
+            totalProbes++;
+        }
         // Assertion: Either key or  null is found at hashTable[index]
         int result = -1;
         
@@ -260,7 +265,7 @@ public class HashedDictionaryOpenAddressingPerfectInstrumented<K,V> implements D
         int index = rand.nextInt(hashTable.length);
         
         while (!found && (hashTable[index] != null)) {
-           
+            totalProbes++;
             if (hashTable[index].isIn()) {
                 if (key.equals(hashTable[index].getKey())) {
                     found = true; // Key found
@@ -277,6 +282,10 @@ public class HashedDictionaryOpenAddressingPerfectInstrumented<K,V> implements D
                 index = rand.nextInt(hashTable.length); // Linear probing
             } // end if
         } // end while
+        
+        if(!found){
+            totalProbes++;
+        }
         
         
         // Assertion: Either key or null is found at hashTable[index]
